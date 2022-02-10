@@ -37,11 +37,6 @@ def removeNullsInfluentFlow(df):
     #removing null indicies from df
     df.drop(axis=1, index=badIndicies, inplace=True)
     df.reset_index(drop=True, inplace=True)
-
-    #casting long double type to all numeric entries
-    #the types are wonky up to this point
-    for name in df.columns[1:]:
-        df[name] = np.array(df[name]).astype(np.longdouble)
     
     return df
 
@@ -106,6 +101,11 @@ def concatenateInfluentFlow(removeNulls = True):
     #removing missing datetimes from df
     if removeNulls:
         df = removeNullsInfluentFlow(df)
+    
+    #casting long double type to all numeric entries
+    #the types are wonky up to this point
+    for name in df.columns[1:]:
+        df[name] = np.array(df[name]).astype(np.longdouble)
 
     return df
 
