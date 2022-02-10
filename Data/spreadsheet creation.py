@@ -22,37 +22,37 @@ from spreadsheet_cgauge import *
 def main():
     '''Implements a data pipline.
     '''
-    ldf = concatenateInfluentFlow()
-    ldf = removeLowFlows(ldf)
-    saveFormattedExcel(ldf, "SWTP Influent Data/Combined Influent.xlsx")
+    ldf = concatenateInfluentFlow(False)
+    # ldf = removeLowFlows(ldf)
+    saveFormattedExcel(ldf, "SWTP Influent Data/Combined Influent with Nulls.xlsx")
 
-    rdf = concatenateRainfallData()
-    saveFormattedExcel(rdf, "Rainfall/Combined Rainfall.xlsx")
+    # rdf = concatenateRainfallData()
+    # saveFormattedExcel(rdf, "Rainfall/Combined Rainfall.xlsx")
 
-    rdf = createAggregateFeatures()
-    # rdf = createAggregateFeatures(True)   #makes everything take long, adds individual aggregate values for each rainfall source
-    saveFormattedExcel(rdf, "Rainfall/Combined Rainfall with Aggregate.xlsx")
+    # rdf = createAggregateFeatures()
+    # # rdf = createAggregateFeatures(True)   #makes everything take long, adds individual aggregate values for each rainfall source
+    # saveFormattedExcel(rdf, "Rainfall/Combined Rainfall with Aggregate.xlsx")
 
-    ldf = joinToDataframeImproved(leftDf=ldf, rightDf=rdf)
-    saveFormattedExcel(ldf, "Joined Influent and Rainfall.xlsx")
+    # ldf = joinToDataframeImproved(leftDf=ldf, rightDf=rdf)
+    # saveFormattedExcel(ldf, "Joined Influent and Rainfall.xlsx")
 
-    rdf = getHourlyConditions()
-    saveFormattedExcel(rdf, "Atmosphere Conditions/Hourly Weather Data.xlsx")
+    # rdf = getHourlyConditions()
+    # saveFormattedExcel(rdf, "Atmosphere Conditions/Hourly Weather Data.xlsx")
 
-    ldf = joinToDataframeImproved(leftDf=ldf, rightDf=rdf)
-    saveFormattedExcel(ldf, "Joined Influent and Rainfall and Weather.xlsx")
+    # ldf = joinToDataframeImproved(leftDf=ldf, rightDf=rdf)
+    # saveFormattedExcel(ldf, "Joined Influent and Rainfall and Weather.xlsx")
     
-    rdf = createGroundwater()
-    saveFormattedExcel(rdf, "Groundwater/Combined Groundwater.xlsx")
+    # rdf = createGroundwater()
+    # saveFormattedExcel(rdf, "Groundwater/Combined Groundwater.xlsx")
 
-    ldf = joinToDataframeImproved(leftDf=ldf, rightDf=rdf)
-    saveFormattedExcel(ldf, "Joined Influent and Rainfall and Weather and Groundwater.xlsx")
+    # ldf = joinToDataframeImproved(leftDf=ldf, rightDf=rdf)
+    # saveFormattedExcel(ldf, "Joined Influent and Rainfall and Weather and Groundwater.xlsx")
 
-    rdf = createCreekGauge()
-    saveFormattedExcel(rdf, "Creek Gauge/Combined Creek Gauge.xlsx")
+    # rdf = createCreekGauge()
+    # saveFormattedExcel(rdf, "Creek Gauge/Combined Creek Gauge.xlsx")
 
-    ldf = joinToDataframeImproved(leftDf=ldf, rightDf=rdf)
-    saveFormattedExcel(ldf, "Joined Influent and Rainfall and Weather and Groundwater and Creek Gauge.xlsx")
+    # ldf = joinToDataframeImproved(leftDf=ldf, rightDf=rdf)
+    # saveFormattedExcel(ldf, "Joined Influent and Rainfall and Weather and Groundwater and Creek Gauge.xlsx")
 
 
 

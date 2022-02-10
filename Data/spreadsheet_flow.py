@@ -101,12 +101,17 @@ def concatenateInfluentFlow(removeNulls = True):
     #removing missing datetimes from df
     if removeNulls:
         df = removeNullsInfluentFlow(df)
+    else:
+        # make "Null" into np.nan values
+        for name in df.columns[1:]:
+            arr = np.array(df[name])
+            df[name] = [np.nan if isinstance(x, str) else x for x in arr]
     
     #casting long double type to all numeric entries
     #the types are wonky up to this point
     for name in df.columns[1:]:
         df[name] = np.array(df[name]).astype(np.longdouble)
-
+    
     return df
 
 def removeLowFlows(df, tolerance=3.75):
