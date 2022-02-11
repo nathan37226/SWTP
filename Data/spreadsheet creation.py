@@ -22,7 +22,7 @@ from spreadsheet_cgauge import *
 def main():
     '''Implements a data pipline.
     '''
-    ldf = concatenateInfluentFlow(False)
+    ldf = concatenateInfluentFlow()
     # ldf = removeLowFlows(ldf)
     saveFormattedExcel(ldf, "SWTP Influent Data/Combined Influent with Nulls.xlsx")
 

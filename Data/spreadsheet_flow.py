@@ -40,13 +40,13 @@ def removeNullsInfluentFlow(df):
     
     return df
 
-def concatenateInfluentFlow(removeNulls = True):
+def concatenateInfluentFlow(removeNulls = False):
     '''This function joins together each seperate year excel file from 
     the SWTP to make a running total for all five years.
     Ensure only the influent flow data is present in the directory -- NO LAB DATA!
     The files are assumed to be dated by year, meaning they are chronological
     already.
-    If null values are desired, pass False.
+    If null values are not desired, pass True.
 
     returns: pandas dataframe of influent flow data
     '''
@@ -87,8 +87,8 @@ def concatenateInfluentFlow(removeNulls = True):
             totals[i] = plant1Flow[i] + plant1Gravity[i] + plant2Flow[i] + peakFlow[i]
             if isinstance(totals[i], str):
                 raise TypeError
-            elif plant1Flow[i] == 0 or plant2Flow[i] == 0:
-                raise TypeError
+            # elif plant1Flow[i] == 0 or plant2Flow[i] == 0:
+            #     raise TypeError
         except TypeError:
             totals[i] = np.nan
     
