@@ -9,3 +9,7 @@ Correlation/Covariance Matrix.csv
 Correlation/Normalized Covariance Matrix.csv
 Correlation/test.xlsx
 testing.ipynb
+Interpolation/testing.ipynb
+Interpolation/testing.py
+Interpolation/data.csv
+Interpolation/seasonality.ipynb
