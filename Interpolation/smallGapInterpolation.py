@@ -105,14 +105,15 @@ def visualizeMissingValues(dates, arr, fig, ax):
 
 def main():
     # reading in initial data
-    df = pd.read_csv("Interpolation/Joined Influent and Rainfall and Weather and Groundwater and Creek Gauge.csv", parse_dates=["DateTime"])
+    # df = pd.read_csv("Interpolation/Joined Influent and Rainfall and Weather and Groundwater and Creek Gauge.csv", parse_dates=["DateTime"])
+    df = pd.read_csv("Interpolation/Imputed Data.csv", parse_dates=["DateTime"])
 
     # getting wanted values out of dataframe
-    arr = np.array(df["SWTP Total Influent Flow"])
-    arr = np.array([np.nan if x < 3.7 else x for x in arr]) # removing suspicious low flow values
+    # arr = np.array(df["SWTP Total Influent Flow"])
+    # arr = np.array([np.nan if x < 3.7 else x for x in arr]) # removing suspicious low flow values
     # arr = np.array(df["Ozark Aquifer Depth to Water Level (ft)"])
     # arr = np.array(df["James Gauge Height (ft)"])
-    # arr = np.array(df["Wilsons Gauge Height (ft)"])
+    arr = np.array(df["Wilsons Gauge Height (ft)"])
 
     # adding null patches and original data to figure
     fig, ax = plt.subplots()
@@ -160,8 +161,9 @@ def main():
                     newDates = [dates[i] for i in interpolationRange]
                     ax.plot(newDates, linInterplator(interpolationRange), "g--")
 
-                    # adding imputed value into array
+                    # adding imputed values into array
                     arr[index] = linInterplator(index)
+                    arr[index+1] = linInterplator(index+1)
 
                 else:
                     # cubic spline interpolation -- sometimes prone to unbelieveable imputed data, but generally close enough to seem right
