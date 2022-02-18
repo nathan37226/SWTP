@@ -5,6 +5,12 @@ import matplotlib.dates as mdates
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.interpolate import CubicSpline
+from scipy.interpolate import interp1d
+
+import sys
+import sklearn.neighbors._base
+sys.modules['sklearn.neighbors.base'] = sklearn.neighbors._base
+from missingpy import MissForest
 
 def makeNullRects(dates, y):
     '''This function returns a list of matplotlib.patches.Rectangles where
@@ -105,6 +111,8 @@ def main():
     arr = np.array(df["SWTP Total Influent Flow"])
     arr = np.array([np.nan if x < 3.7 else x for x in arr]) # removing suspicious low flow values
     # arr = np.array(df["Ozark Aquifer Depth to Water Level (ft)"])
+    # arr = np.array(df["James Gauge Height (ft)"])
+    # arr = np.array(df["Wilsons Gauge Height (ft)"])
 
     # adding null patches and original data to figure
     fig, ax = plt.subplots()
@@ -112,53 +120,85 @@ def main():
 
     # finding all null values present and how many in a row
     index = 0
-    pairs = []                  # formatted like [(start index, num values)]
+    # pairs = []                  # formatted like [(start index, num values)]
+    dates = np.array(df["DateTime"])    # so that interpolated values can be plotted
     while index < len(arr):
+        # finding null gap
         if np.isnan(arr[index]):
+            # getting width of null gap
             width = 1
-            while np.isnan(arr[index + width]):
+            while index + width < len(arr) and np.isnan(arr[index + width]):
                 width += 1
-            pairs.append((index, width))
+            # print("Index = {i}, width = {w}".format(i = index, w = width))
+
+            if width < 7 and index + width + 1 < len(arr):
+                # interpolate data!
+                # remember: all values before this index are filled
+                # want next 10 values if not null, else however many there are available until first null, guarenteed at least 1
+                if width == 1:
+                    # linear interpolate
+                    x = [index-1] + [index+1]
+                    y = [arr[i] for i in x]
+                    linInterplator = interp1d(x, y)
+                    
+                    # plotting value
+                    interpolationRange = [index-1] + [index] + [index+1]
+                    newDates = [dates[i] for i in interpolationRange]
+                    ax.plot(newDates, linInterplator(interpolationRange), "g--")
+
+                    # adding imputed value into array
+                    arr[index] = linInterplator(index)
+                
+                elif width == 2:
+                    # linear interpolate
+                    x = [index-1] + [index+2]
+                    y = [arr[i] for i in x]
+                    linInterplator = interp1d(x, y)
+                    
+                    # plotting value
+                    interpolationRange = [index-1] + [index] + [index+1] + [index+2]
+                    newDates = [dates[i] for i in interpolationRange]
+                    ax.plot(newDates, linInterplator(interpolationRange), "g--")
+
+                    # adding imputed value into array
+                    arr[index] = linInterplator(index)
+
+                else:
+                    # cubic spline interpolation -- sometimes prone to unbelieveable imputed data, but generally close enough to seem right
+                    # "Wilsons Gauge Height (ft)" is a bad impution example in one spot to the far right where it dips below the previous minimum
+                    lenForwards = 0
+                    while lenForwards < 10 and not np.isnan(arr[index + width + lenForwards + 1]):
+                        lenForwards += 1
+
+                    lenBackwards = 0
+                    while lenBackwards < 10 and not np.isnan(arr[index - lenBackwards - 1]):
+                        lenBackwards += 1
+                    
+                    # getting x and y values for cubic spline and building spline
+                    nullRange = list(range(index, index + width, 1))
+                    totalRange = list(range(index - lenBackwards, index + width + lenForwards + 1, 1))
+                    x = [x for x in totalRange if x not in nullRange]
+                    y = [arr[i] for i in x]
+                    cspline = CubicSpline(x, y)
+
+                    # plotting interpolated values
+                    interpolationRange = list(range(index - 1, index + width + 1, 1))
+                    newDates = [dates[i] for i in interpolationRange]
+                    ax.plot(newDates, cspline(interpolationRange), "g--")
+
+                    #replacing null values in array with interpolated values
+                    for i in interpolationRange:
+                        arr[i] = cspline(i)
+
+            # move index forward past gap, continue searching
             index += width
+
+        # no null gap, so continue searching
         else:
             index += 1
 
     # for pair in pairs:
     #     print("Null values starting at index: {i}. {w} total nulls".format(i=pair[0], w=pair[1]))
-
-    # interpolation
-    dates = np.array(df["DateTime"])    # so that interpolated values can be plotted
-    for pair in pairs:
-        if pair[1] < 7:
-            # interpolation for short gaps -- cubic splines
-
-            # getting number of points before and after the null values
-            lenBackwards = 0
-            while lenBackwards < 15 and not np.isnan(arr[pair[0] - lenBackwards - 1]):
-                lenBackwards += 1
-            lenForwards = 0
-            while lenForwards < 15 and not np.isnan(arr[pair[0] + pair[1] + lenForwards]):
-                lenForwards += 1
-            # print("For null {index}, start index = {sindex} and end index = {eindex}. {w} total nulls".format(index = pair[0], 
-            #     sindex = pair[0] - lenBackwards, eindex = pair[0] + lenForwards, w = pair[1]))
-            
-            # setting ranges of values to get x and y points for interpolation
-            nullRange = list(range(pair[0], pair[0] + pair[1], 1))
-            totalRange = list(range(pair[0] - lenBackwards, pair[0] + lenForwards + 1, 1))
-            x = [x for x in totalRange if x not in nullRange]
-            y = [arr[i] for i in x]
-
-            # building spline and interpolating
-            cspline = CubicSpline(x, y)
-            interpolationRange = list(range(pair[0] - 1, pair[0] + pair[1] + 1, 1))
-
-            # plotting interpolated values
-            newDates = [dates[i] for i in interpolationRange]
-            ax.plot(newDates, cspline(interpolationRange), "g--")
-
-        else:
-            # interpolation for long gaps ???
-            continue
 
     plt.show(block=True)
 
