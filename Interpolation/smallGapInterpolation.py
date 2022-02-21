@@ -109,11 +109,11 @@ def main():
     df = pd.read_csv("Interpolation/Imputed Data.csv", parse_dates=["DateTime"])
 
     # getting wanted values out of dataframe
-    # arr = np.array(df["SWTP Total Influent Flow"])
+    arr = np.array(df["SWTP Total Influent Flow"])
     # arr = np.array([np.nan if x < 3.7 else x for x in arr]) # removing suspicious low flow values
     # arr = np.array(df["Ozark Aquifer Depth to Water Level (ft)"])
     # arr = np.array(df["James Gauge Height (ft)"])
-    arr = np.array(df["Wilsons Gauge Height (ft)"])
+    # arr = np.array(df["Wilsons Gauge Height (ft)"])
 
     # adding null patches and original data to figure
     fig, ax = plt.subplots()
@@ -132,7 +132,7 @@ def main():
                 width += 1
             # print("Index = {i}, width = {w}".format(i = index, w = width))
 
-            if width < 7 and index + width + 1 < len(arr):
+            if width < 8 and index + width + 1 < len(arr):
                 # interpolate data!
                 # remember: all values before this index are filled
                 # want next 10 values if not null, else however many there are available until first null, guarenteed at least 1

@@ -74,9 +74,11 @@ def makeNullRects(dates, y):
 
 
 def main():
-    df = pd.read_csv("Data/Joined Influent and Rainfall and Weather and Groundwater and Creek Gauge.csv")
+    # df = pd.read_csv("Interpolation/Joined Influent and Rainfall and Weather and Groundwater and Creek Gauge.csv")
+    df = pd.read_csv("Interpolation/Imputed Data.csv", parse_dates=["DateTime"])
     flows = np.array(df["SWTP Total Influent Flow"])
-    dates = np.array([datetime.strptime(s, "%Y-%m-%d %H:%M:%S") for s in df["DateTime"]])
+    # dates = np.array([datetime.strptime(s, "%Y-%m-%d %H:%M:%S") for s in df["DateTime"]])
+    dates = np.array(df["DateTime"])
 
     fig, ax = plt.subplots()
     ax.plot(dates, flows)
