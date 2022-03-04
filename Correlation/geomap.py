@@ -21,11 +21,12 @@ fig, ax = plt.subplots()
 map.plot(ax=ax, alpha=0.5, color="grey")
 
 #plotting rainfall sources ontop of springfield
-geoDf.plot(ax=ax, column="Distance Correlation", cmap="coolwarm", legend=True, legend_kwds={'shrink': 0.3}, markersize=450)
+geoDf.plot(ax=ax, column="Distance Correlation", cmap="coolwarm", legend=True, 
+    legend_kwds={'shrink': 0.3, 'label': "Distance Correlation"}, markersize=450)
 
 #adding labels to points
 for x, y, label in zip(df["Longitude"], df["Latitude"], df["Label"]):
-    ax.annotate(label, xy=(x, y), xytext=(2.75, 8.25), textcoords="offset points", size=10, weight="light")
+    ax.annotate(label, xy=(x, y), xytext=(3.75, 8.5), textcoords="offset points", size=10, weight="light")
 
 #adding SWTP to map
 lon = -93.361996
@@ -37,7 +38,9 @@ polyPoints = [leftPoint, topPoint, rightPoint, bottomPoint]
 polygon = geo.Polygon([[p.x, p.y] for p in polyPoints])
 p = gpd.GeoSeries(polygon)
 p.plot(ax=ax, color="tab:orange")
-ax.annotate("SWTP", xy=(lon, lat), xytext=(.75, 5.75), textcoords="offset points", size=10, weight="light")
+ax.annotate("SWTP", xy=(lon, lat), xytext=(1.5, 5.75), textcoords="offset points", size=10, weight="light")
 
-
+ax.set_xlabel("Longitude", size=15)
+ax.set_ylabel("Latitude", size=15)
+plt.title("Aggregate Rain Gauge Distance Correlation to Total Influent Flow Rates", size=18)
 plt.show()
