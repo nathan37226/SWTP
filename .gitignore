@@ -12,4 +12,11 @@ testing.ipynb
 Interpolation/testing.ipynb
 Interpolation/testing.py
 Interpolation/seasonality.ipynb
-Interpolation/missForest.ipynb
+Interpolation/groundwater testing lstm.ipynb
+Interpolation/groundwater testing arima.ipynb
+Interpolation/test.csv
+Interpolation/Validated Features.csv
+Interpolation/Filtered Validated Features.csv
+Interpolation/linear line test.csv
+Interpolation/predicted groundwater test.csv
+Interpolation/predicted groundwater.csv
