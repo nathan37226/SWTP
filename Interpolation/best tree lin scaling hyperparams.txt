@@ -1,2 +1,2 @@
 "Ozark Aquifer Depth to Water Level (ft)" - 9 features, 10 max depth, 75 trees, and a scale factor of 0.1
-"Springfield Plateau Aquifer Depth to Water Level (ft)" - 
+"Springfield Plateau Aquifer Depth to Water Level (ft)" - 9 features, 10 max depth, 75 trees, and a scale factor of 0.1
