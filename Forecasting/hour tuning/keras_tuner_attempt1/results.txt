@@ -1,0 +1,8 @@
+n_steps_in = 48
+First MSE: 95.3305
+Total Avg MSE: 106.2216
+
+Form:
+LSTM
+LSTM
+Dense(24)

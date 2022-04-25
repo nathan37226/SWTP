@@ -1,0 +1,9 @@
+n_steps_in = 48
+First MSE: 377.8169
+Total Avg MSE: 91.2756
+
+Form:
+LSTM
+LSTM
+Dense(24)
+Activation('relu')

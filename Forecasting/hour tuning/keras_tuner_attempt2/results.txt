@@ -1,0 +1,9 @@
+n_steps_in = 48
+First MSE: 23.7618
+Total Avg MSE: 73.4414
+
+Form:
+LSTM
+LSTM
+Dense(24)
+Activation('linear')

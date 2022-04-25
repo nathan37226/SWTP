@@ -1,0 +1,1 @@
+All models here were trained with 20 epochs
