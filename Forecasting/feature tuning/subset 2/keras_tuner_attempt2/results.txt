@@ -1,0 +1,10 @@
+n_steps_in = 36
+epochs = 4
+First 96 Avg MSE: 37.7734
+Total Avg MSE: 166.1138
+
+Form:
+LSTM
+LSTM
+Dense(24)
+Activation('linear')

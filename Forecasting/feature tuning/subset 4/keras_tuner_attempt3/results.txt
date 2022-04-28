@@ -1,0 +1,11 @@
+n_steps_in = 36
+epochs = 6
+First 96 Avg MSE: 22.6763
+Total Avg MSE: 81.9552
+
+Form:
+LSTM
+Dense(24)
+Activation('linear')
+
+['SWTP Total Influent Flow', 'Total Rainfall (in)']

@@ -1,0 +1,1 @@
+['Springfield Plateau Aquifer Depth to Water Level (ft)', 'Fire Rainfall (in)', 'Bingham Rainfall (in)', 'SWTP Plant 1 Gravity Flow', 'SWTP Plant 2 Influent Flow', 'SWTP Total Influent Flow']

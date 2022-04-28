@@ -1,0 +1,10 @@
+n_steps_in = 36
+epochs = 5
+First 96 Avg MSE: 22.1685
+Total Avg MSE: 62.5824
+
+Form:
+LSTM
+LSTM
+Dense(24)
+Activation('sigmoid')

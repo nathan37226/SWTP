@@ -1,0 +1,11 @@
+n_steps_in = 36
+epochs = 5
+First 96 Avg MSE: 15.4627
+Total Avg MSE: 61.0021
+
+Form:
+LSTM
+Dense(24)
+Activation('linear')
+
+features = ['SWTP Total Influent Flow', 'Fire Rainfall (in)', 'Bingham Rainfall (in)', 'Field Rainfall (in)',  'Pittman Rainfall (in)', 'Waste Rainfall (in)', 'Ozark Aquifer Depth to Water Level (ft)']

@@ -1,0 +1,10 @@
+n_steps_in = 36
+epochs = 15
+Avg Test MSE: 77.8016
+Avg Validation MSE: 64.5557
+
+Form:
+LSTM
+LSTM
+Dense(24)
+Activation('linear')

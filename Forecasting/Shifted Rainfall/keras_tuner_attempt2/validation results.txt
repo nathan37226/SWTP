@@ -1,0 +1,11 @@
+n_steps_in = 36
+epochs = 5
+Avg Test MSE: 73.2098
+Avg Validation MSE: 67.1881
+
+Form:
+LSTM
+LSTM
+Dense(24)
+Activation('linear')
+rain shifted 24 hours

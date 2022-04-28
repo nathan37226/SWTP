@@ -1,0 +1,2 @@
+features = ['SWTP Total Influent Flow', 'Fire Rainfall (in)', 'Bingham Rainfall (in)', 
+            "Ozark Aquifer Depth to Water Level (ft)", "James Gauge Height (ft)", 'HourlyStationPressure']

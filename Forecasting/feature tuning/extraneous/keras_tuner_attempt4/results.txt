@@ -1,0 +1,10 @@
+n_steps_in = 36
+epochs = 5
+First 96 Avg MSE: 1137.2312
+Total Avg MSE: 1034.8084
+
+Form:
+LSTM
+LSTM
+Dense(24)
+Activation('softmax')

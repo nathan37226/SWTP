@@ -1,0 +1,11 @@
+n_steps_in = 36
+epochs = 4
+First 96 Avg MSE: 17.3455
+Total Avg MSE: 66.7235
+
+Form:
+LSTM
+Dense(24)
+Activation('linear')
+
+['SWTP Total Influent Flow', 'Fire Rainfall (in)', 'Bingham Rainfall (in)', 'SWTP Plant 1 Gravity Flow']

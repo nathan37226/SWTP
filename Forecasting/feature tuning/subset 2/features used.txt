@@ -1,0 +1,1 @@
+['Springfield Plateau Aquifer Depth to Water Level (ft)', 'Fire Rainfall (in)', 'Bingham Rainfall (in)']
