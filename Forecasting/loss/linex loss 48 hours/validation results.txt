@@ -1,0 +1,12 @@
+n_steps_in = 36
+epochs = 5
+batch = 4
+linex loss a = 3
+Avg Test MSE: 96.8598
+Avg Validation MSE: 98.6426
+
+Form:
+LSTM
+LSTM
+Dense(24)
+Activation('linear')
